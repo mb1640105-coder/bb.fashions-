@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="bbb.cpp">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BB Fashion — Premium Store</title>
+  <link rel="stylesheet" href="doreamon.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo" title="BB Clothes Store">BB</div>
+      <nav class="main-nav">
+        <button class="nav-btn" onclick="filterCategory('all')">All</button>
+        <button class="nav-btn" onclick="filterCategory('men')">Men</button>
+        <button class="nav-btn" onclick="filterCategory('women')">Women</button>
+        <button class="nav-btn" onclick="filterCategory('kids')">Kids</button>
+        <button class="nav-btn" onclick="filterCategory('shoes')">Shoes</button>
+      </nav>
+      <div class="header-actions">
+        <input id="searchInput" class="search" placeholder="Search clothes, e.g. 'denim jacket'..." />
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO / SLIDER -->
+  <section class="hero">
+    <div class="hero-slider" id="heroSlider">
+      <div class="slide active" style="background-image:url('https://picsum.photos/seed/hero1/1400/600')">
+        <div class="slide-content">
+          <h1>New Arrivals — Spring 2026</h1>
+          <p>Bold looks. Clean lines. Shop the latest collection now.</p>
+          <button class="cta" onclick="filterCategory('all')">Shop Now</button>
+        </div>
+      </div>
+      <div class="slide" style="background-image:url('https://picsum.photos/seed/hero2/1400/600')">
+        <div class="slide-content">
+          <h1>Premium Outerwear</h1>
+          <p>Leather, denim, and bomber jackets with modern fit.</p>
+          <button class="cta" onclick="filterCategory('men')">View Jackets</button>
+        </div>
+      </div>
+      <div class="slide" style="background-image:url('https://picsum.photos/seed/hero3/1400/600')">
+        <div class="slide-content">
+          <h1>Elegant Dresses & Gowns</h1>
+          <p>Standout pieces for every special night.</p>
+          <button class="cta" onclick="filterCategory('women')">Shop Dresses</button>
+        </div>
+      </div>
+      <button class="slide-nav prev" onclick="slidePrev()">‹</button>
+      <button class="slide-nav next" onclick="slideNext()">›</button>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="container">
+    <section class="categories">
+      <div class="chip" onclick="filterCategory('all')">All</div>
+      <div class="chip" onclick="filterCategory('men')">Men</div>
+      <div class="chip" onclick="filterCategory('women')">Women</div>
+      <div class="chip" onclick="filterCategory('kids')">Kids</div>
+      <div class="chip" onclick="filterCategory('shoes')">Shoes</div>
+    </section>
+
+    <section class="product-grid" id="productGrid">
+      <!-- JS injects product cards -->
+    </section>
+  </main>
+
+  <!-- FLOATING CART -->
+  <div class="cart-floating" id="cartFloating" title="Cart (demo)">
+    <div class="cart-ico">🛒</div>
+    <div class="cart-count" id="cartCount">0</div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col about">
+        <h4>About BB</h4>
+        <p>BB is a premium fashion destination focused on modern design and quality. Demo template by Bulbuly.</p>
+      </div>
+      <div class="footer-col links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#" onclick="filterCategory('all')">Shop All</a></li>
+          <li><a href="#" onclick="filterCategory('men')">Men</a></li>
+          <li><a href="#" onclick="filterCategory('women')">Women</a></li>
+          <li><a href="#" onclick="filterCategory('kids')">Kids</a></li>
+        </ul>
+      </div>
+      <div class="footer-col social">
+        <h4>Follow</h4>
+        <div class="socials">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="Twitter">TW</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 BB Clothes Store — Made with ❤️</div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // ---------- PRODUCTS (50 items)
+    const products = [
+      // MEN (15)
+      {id:1,name:'Blue Denim Jacket',price:6.99,gender:'men',img:'https://www.acecart.pk/cdn/shop/files/37-1_2eeccecd-5982-41da-a775-e006baa095c1.webp?v=1730928275'},
+      {id:2,name:'Grey Hoodie',price:45,gender:'men',img:'https://images.bewakoof.com/original/men-s-grey-hoodies-596540-1737712249-1.jpg'},
+      {id:3,name:'White Cotton Shirt',price:19.99,gender:'men',img:'https://www.crimsouneclub.com/cdn/shop/files/MA10090-1_1.jpg?v=1754565267'},
+      {id:4,name:'Formal Black Suit',price:119.99,gender:'men',img:'https://blackberrys.com/cdn/shop/files/Two_Piece_Black_Printed_Formal_Suit_Jessel_CP002196Z1_image1_1600x.jpg?v=1731416108'},
+      {id:5,name:'Leather Moto Jacket',price:89.99,gender:'men',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdT1BHk3gWV6TXOJ7mbBHLmrdHHgPzHzSbSg&s'},
+      {id:6,name:'Summer Polo Tee',price:35,gender:'men',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRknbq-cOeG--fhxbBLJTE0fV-pIJ4Dcx32Kw&s'},
+      {id:7,name:'Casual Chinos',price:12.99,gender:'men',img:'https://www.chinomaster.com/cdn/shop/files/05_Heroes_Olive_Model_Sitting.jpg?v=1762769526&width=1445'},
+      {id:8,name:'Winter Wool Sweater',price:69,gender:'men',img:'https://picsum.photos/seed/108/800/600'},
+      {id:9,name:'Sports Tracksuit',price:79,gender:'men',img:'https://picsum.photos/seed/109/800/600'},
+      {id:10,name:'Classic Blue Jeans',price:14.99,gender:'men',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYtmwKBRmh71iSTf1vNYiea_BKRgehsfFAXQ&s'},
+      {id:11,name:'Denim Over Shirt',price:65,gender:'men',img:'https://picsum.photos/seed/111/800/600'},
+      {id:12,name:'Linen Summer Shirt',price:39,gender:'men',img:'https://picsum.photos/seed/112/800/600'},
+      {id:13,name:'Bomber Jacket',price:139,gender:'men',img:'https://picsum.photos/seed/113/800/600'},
+      {id:14,name:'Canvas Sneakers',price:69,gender:'shoes',img:'https://picsum.photos/seed/114/800/600'},
+      {id:15,name:'Leather Loafers',price:89,gender:'shoes',img:'https://picsum.photos/seed/115/800/600'},
+
+      // WOMEN (20)
+      {id:16,name:'Floral Maxi Dress',price:499,gender:'women',img:'https://i.pinimg.com/736x/ea/5e/b7/ea5eb7e7c2f22f233daeaeebda40c3c4.jpg'},
+      {id:17,name:'Red Midi Skirt',price:49,gender:'women',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkOOnOHv4vihcGQ0udeXoNXQ7jye-V78O2zw&s'},
+      {id:18,name:'Silk Evening Gown',price:720,gender:'women',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqd_NII-2Fq0l_sUE55C5fPdH3Pj7LMGaexQ&s'},
+      {id:19,name:'Traditional Saree',price:429,gender:'women',img:'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/w/o/woven-pure-chanderi-silk-saree-in-brown-v1-stfa20.jpg'},
+      {id:20,name:'Chiffon Blouse',price:39,gender:'women',img:'https://picsum.photos/seed/120/800/600'},
+      {id:21,name:'High Waist Jeans (W)',price:59,gender:'women',img:'https://picsum.photos/seed/121/800/600'},
+      {id:22,name:'Statement Coat',price:159,gender:'women',img:'https://picsum.photos/seed/122/800/600'},
+      {id:23,name:'Party Heels',price:89,gender:'shoes',img:'https://picsum.photos/seed/123/800/600'},
+      {id:24,name:'Elegant Black Dress',price:119,gender:'women',img:'https://picsum.photos/seed/124/800/600'},
+      {id:25,name:'Casual Tee (W)',price:25,gender:'women',img:'https://picsum.photos/seed/125/800/600'},
+      {id:26,name:'Boho Maxi Skirt',price:69,gender:'women',img:'https://picsum.photos/seed/126/800/600'},
+      {id:27,name:'Office Blazer',price:99,gender:'women',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlCdNKTJ0dilk4ERIz0OAQ_BpR05X_-AgW-A&s'},
+      {id:28,name:'Knit Cardigan',price:55,gender:'women',img:'https://picsum.photos/seed/128/800/600'},
+      {id:29,name:'Satin Slip Dress',price:79,gender:'women',img:'https://picsum.photos/seed/129/800/600'},
+      {id:30,name:'Summer Sandals',price:45,gender:'shoes',img:'https://picsum.photos/seed/130/800/600'},
+      {id:31,name:'Denim Jacket (W)',price:84,gender:'women',img:'https://picsum.photos/seed/131/800/600'},
+      {id:32,name:'Pleated Dress',price:65,gender:'women',img:'https://picsum.photos/seed/132/800/600'},
+      {id:33,name:'Evening Clutch',price:39,gender:'women',img:'https://picsum.photos/seed/133/800/600'},
+      {id:34,name:'Layered Necklace',price:29,gender:'women',img:'https://picsum.photos/seed/134/800/600'},
+      {id:35,name:'Wide Leg Trousers',price:59,gender:'women',img:'https://picsum.photos/seed/135/800/600'},
+
+      // KIDS (10)
+      {id:36,name:'Kids Hoodie',price:29,gender:'kids',img:'https://picsum.photos/seed/136/800/600'},
+      {id:37,name:'Kids Denim Jacket',price:39,gender:'kids',img:'https://picsum.photos/seed/137/800/600'},
+      {id:38,name:'Kids Printed Tee',price:15,gender:'kids',img:'https://picsum.photos/seed/138/800/600'},
+      {id:39,name:'Kids Joggers',price:22,gender:'kids',img:'https://picsum.photos/seed/139/800/600'},
+      {id:40,name:'Kids Sneakers',price:34,gender:'shoes',img:'https://picsum.photos/seed/140/800/600'},
+      {id:41,name:'Kids Dress',price:35,gender:'kids',img:'https://picsum.photos/seed/141/800/600'},
+      {id:42,name:'Kids Coat',price:49,gender:'kids',img:'https://picsum.photos/seed/142/800/600'},
+      {id:43,name:'Mini Summer Shorts',price:18,gender:'kids',img:'https://picsum.photos/seed/143/800/600'},
+      {id:44,name:'Kids Cap',price:12,gender:'kids',img:'https://picsum.photos/seed/144/800/600'},
+      {id:45,name:'Kids Rainboots',price:28,gender:'kids',img:'https://picsum.photos/seed/145/800/600'},
+
+      // MISC / SPECIAL (5)
+      {id:46,name:'Limited Edition Coat',price:299,gender:'men',img:'https://picsum.photos/seed/146/800/600'},
+      {id:47,name:'Weekend Backpack',price:69,gender:'all',img:'https://picsum.photos/seed/147/800/600'},
+      {id:48,name:'Athletic Running Shoes',price:99,gender:'shoes',img:'https://picsum.photos/seed/148/800/600'},
+      {id:49,name:'Lounge Set',price:49,gender:'women',img:'https://picsum.photos/seed/149/800/600'},
+      {id:50,name:'Classic Fedora Hat',price:39,gender:'men',img:'https://picsum.photos/seed/150/800/600'}
+    ];
+
+    // ---------- RENDER & INTERACTIONS ----------
+    const productGrid = document.getElementById('productGrid');
+    const cartCountEl = document.getElementById('cartCount');
+    const searchInput = document.getElementById('searchInput');
+
+    let cart = [];
+    let activeCategory = 'all';
+
+    function renderProducts(list) {
+      productGrid.innerHTML = '';
+      if (list.length === 0) {
+        productGrid.innerHTML = '<div class="no-results">No products found.</div>';
+        return;
+      }
+      list.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <div class="media">
+            <img src="${p.img}" alt="${p.name}" loading="lazy">
+            <div class="actions">
+              <button class="btn-ghost" onclick="viewDetails(${p.id})">View</button>
+              <button class="btn-add" onclick="addToCart(${p.id})">Add</button>
+            </div>
+          </div>
+          <div class="meta">
+            <h3 class="pname">${p.name}</h3>
+            <div class="pinfo">
+              <span class="price">$${p.price}</span>
+              <span class="tag">${p.gender === 'all' ? 'Unisex' : p.gender.charAt(0).toUpperCase()+p.gender.slice(1)}</span>
+            </div>
+          </div>
+        `;
+        productGrid.appendChild(card);
+      });
+    }
+
+    function addToCart(id) {
+      const item = products.find(p => p.id === id);
+      cart.push(item);
+      cartCountEl.innerText = cart.length;
+      // small floating feedback
+      const el = document.createElement('div');
+      el.className = 'toast';
+      el.textContent = item.name + ' added to cart';
+      document.body.appendChild(el);
+      setTimeout(()=> el.classList.add('show'), 10);
+      setTimeout(()=> el.classList.remove('show'), 1800);
+      setTimeout(()=> el.remove(), 2200);
+    }
+
+    function viewDetails(id) {
+      const p = products.find(x => x.id===id);
+      alert(p.name + '\\nPrice: $' + p.price + '\\nCategory: ' + p.gender);
+    }
+
+    function filterCategory(cat) {
+      activeCategory = cat;
+      applyFilters();
+      // highlight nav buttons (simple)
+      document.querySelectorAll('.nav-btn').forEach(b=> b.classList.remove('active'));
+    }
+
+    function applyFilters() {
+      const q = searchInput.value.trim().toLowerCase();
+      let list = products.filter(p=>{
+        const matchCategory = activeCategory === 'all' || p.gender === activeCategory || p.gender === 'all' && activeCategory !== 'kids';
+        // allow 'shoes' to show gender 'shoes' items too
+        if (activeCategory === 'shoes') return (p.gender === 'shoes' || p.gender === 'all');
+        if (activeCategory === 'all') return true;
+        return (p.gender === activeCategory || p.gender === 'all');
+      });
+      if (q) list = list.filter(p => p.name.toLowerCase().includes(q));
+      renderProducts(list);
+    }
+
+    // search binding
+    searchInput.addEventListener('input', ()=> {
+      applyFilters();
+    });
+
+    // init
+    renderProducts(products);
+
+    // ---------- HERO SLIDER ----------
+    let heroIndex = 0;
+    const slides = document.querySelectorAll('.hero-slider .slide');
+    function showSlide(i){
+      slides.forEach(s=> s.classList.remove('active'));
+      slides[i].classList.add('active');
+    }
+    function slideNext(){
+      heroIndex = (heroIndex+1) % slides.length;
+      showSlide(heroIndex);
+    }
+    function slidePrev(){
+      heroIndex = (heroIndex - 1 + slides.length) % slides.length;
+      showSlide(heroIndex);
+    }
+    // auto-play
+    setInterval(slideNext, 5000);
+
+    // small UX: keyboard left/right for slides
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'ArrowRight') slideNext();
+      if (e.key === 'ArrowLeft') slidePrev();
+    });
+  </script>
+</body>
+</html>
